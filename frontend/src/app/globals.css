@@ -1,0 +1,352 @@
+
+@import "tailwindcss";
+
+/* =========================================
+   CAMPUSFIND — MIDNIGHT NAVY + CORAL
+   Global design tokens
+========================================= */
+
+:root {
+  --cf-primary: #172B4D;
+  --cf-primary-light: #233F73;
+  --cf-primary-hover: #1B345C;
+
+  --cf-accent: #E87968;
+  --cf-accent-hover: #D96656;
+  --cf-accent-soft: #FFF0ED;
+
+  --cf-background: #F5F7FB;
+  --cf-surface: #FFFFFF;
+  --cf-surface-muted: #EDF1F7;
+
+  --cf-text: #172033;
+  --cf-text-secondary: #58657A;
+  --cf-text-muted: #68758A;
+
+  --cf-border: #DCE2EC;
+  --cf-border-strong: #C4CEDD;
+
+  --cf-success: #166534;
+  --cf-success-bg: #DCFCE7;
+
+  --cf-danger: #B91C1C;
+  --cf-danger-bg: #FEE2E2;
+
+  --cf-warning: #92400E;
+  --cf-warning-bg: #FEF3C7;
+
+  --cf-radius: 14px;
+  --cf-shadow:
+    0 4px 18px rgba(23, 43, 77, 0.06);
+}
+
+/* =========================================
+   BASE
+========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--cf-background);
+  color: var(--cf-text);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: #DCE6F5;
+  color: var(--cf-primary);
+}
+
+/* =========================================
+   PAGE BACKGROUNDS
+========================================= */
+
+.bg-slate-50 {
+  background-color: var(--cf-background) !important;
+}
+
+.bg-slate-100 {
+  background-color: var(--cf-surface-muted) !important;
+}
+
+.bg-white {
+  background-color: var(--cf-surface) !important;
+}
+
+.bg-slate-950 {
+  background-color: var(--cf-primary) !important;
+}
+
+.bg-slate-900 {
+  background-color: #203657 !important;
+}
+
+/* =========================================
+   PRIMARY NAVY COLORS
+========================================= */
+
+.bg-blue-600,
+.bg-blue-700 {
+  background-color: var(--cf-primary-light) !important;
+}
+
+.bg-blue-50 {
+  background-color: #EDF3FC !important;
+}
+
+.bg-blue-100 {
+  background-color: #DCE6F5 !important;
+}
+
+.text-blue-400,
+.text-blue-500,
+.text-blue-600,
+.text-blue-700,
+.text-blue-800 {
+  color: var(--cf-primary-light) !important;
+}
+
+.border-blue-100 {
+  border-color: #DCE6F5 !important;
+}
+
+.border-blue-200 {
+  border-color: #C5D5EC !important;
+}
+
+.border-blue-500 {
+  border-color: var(--cf-primary-light) !important;
+}
+
+/* =========================================
+   CORAL ACCENTS
+========================================= */
+
+.bg-amber-50,
+.bg-orange-50 {
+  background-color: var(--cf-accent-soft) !important;
+}
+
+.bg-amber-100,
+.bg-orange-100 {
+  background-color: #FCE1DB !important;
+}
+
+.text-amber-600,
+.text-amber-700,
+.text-orange-600,
+.text-orange-700 {
+  color: #A83F31 !important;
+}
+
+.border-amber-200,
+.border-orange-200 {
+  border-color: #F2C4BA !important;
+}
+
+/* =========================================
+   TEXT COLORS
+========================================= */
+
+.text-slate-900 {
+  color: #172033 !important;
+}
+
+.text-slate-800 {
+  color: #26344A !important;
+}
+
+.text-slate-700 {
+  color: #34435B !important;
+}
+
+.text-slate-600 {
+  color: #58657A !important;
+}
+
+.text-slate-500 {
+  color: #68758A !important;
+}
+
+.text-slate-400 {
+  color: #8793A5 !important;
+}
+
+.text-slate-300 {
+  color: #AAB5C4 !important;
+}
+
+.text-white {
+  color: #FFFFFF !important;
+}
+
+/* =========================================
+   BORDERS
+========================================= */
+
+.border-slate-100 {
+  border-color: #E8ECF2 !important;
+}
+
+.border-slate-200 {
+  border-color: var(--cf-border) !important;
+}
+
+.border-slate-300 {
+  border-color: var(--cf-border-strong) !important;
+}
+
+.border-slate-800 {
+  border-color: #344968 !important;
+}
+
+/* =========================================
+   BUTTON HOVER STATES
+========================================= */
+
+.hover\:bg-blue-700:hover {
+  background-color: var(--cf-primary-hover) !important;
+}
+
+.hover\:bg-blue-50:hover {
+  background-color: #EDF3FC !important;
+}
+
+.hover\:bg-slate-50:hover {
+  background-color: #EDF1F7 !important;
+}
+
+.hover\:bg-slate-100:hover {
+  background-color: #E5EAF2 !important;
+}
+
+.hover\:text-blue-600:hover,
+.hover\:text-blue-700:hover {
+  color: var(--cf-accent-hover) !important;
+}
+
+/* =========================================
+   SUCCESS STATES
+========================================= */
+
+.bg-emerald-50,
+.bg-green-50 {
+  background-color: var(--cf-success-bg) !important;
+}
+
+.bg-emerald-100,
+.bg-green-100 {
+  background-color: #BBF7D0 !important;
+}
+
+.text-emerald-600,
+.text-emerald-700,
+.text-green-600,
+.text-green-700 {
+  color: var(--cf-success) !important;
+}
+
+.border-emerald-200,
+.border-green-200 {
+  border-color: #86EFAC !important;
+}
+
+/* =========================================
+   DANGER STATES
+========================================= */
+
+.bg-red-50 {
+  background-color: var(--cf-danger-bg) !important;
+}
+
+.bg-red-100 {
+  background-color: #FECACA !important;
+}
+
+.text-red-500,
+.text-red-600,
+.text-red-700 {
+  color: var(--cf-danger) !important;
+}
+
+.border-red-200 {
+  border-color: #FECACA !important;
+}
+
+/* =========================================
+   FORM ELEMENTS
+========================================= */
+
+input,
+textarea,
+select {
+  color: var(--cf-text);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #68758A;
+  opacity: 1;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline-color: var(--cf-primary-light);
+}
+
+/* =========================================
+   CARDS AND SURFACES
+========================================= */
+
+.shadow-sm {
+  box-shadow: var(--cf-shadow) !important;
+}
+
+.rounded-xl {
+  border-radius: var(--cf-radius);
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+:focus-visible {
+  outline: 3px solid #E87968;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
