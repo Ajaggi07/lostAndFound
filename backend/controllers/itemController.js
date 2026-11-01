@@ -1,8 +1,33 @@
 
 const Item = require("../models/Item");
+const cloudinary = require("../config/cloudinary");
+const streamifier = require("streamifier");
+
+// Upload image to Cloudinary
+const uploadToCloudinary = (fileBuffer) => {
+    return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: "campus-lost-found",
+                resource_type: "image",
+            },
+            (error, result) => {
+                if (error) {
+                    return reject(error);
+                }
+
+                resolve(result);
+            }
+        );
+
+        streamifier.createReadStream(fileBuffer).pipe(stream);
+    });
+};
 
 // CREATE ITEM
 exports.createItem = async (req, res, next) => {
+    let uploadedImage = null;
+
     try {
         const {
             title,
@@ -13,13 +38,7 @@ exports.createItem = async (req, res, next) => {
             date
         } = req.body;
 
-        if (
-            !title ||
-            !type ||
-            !category ||
-            !description ||
-            !location
-        ) {
+        if (!title || !type || !category || !description || !location) {
             return res.status(400).json({
                 message: "Please complete all required fields."
             });
@@ -31,6 +50,12 @@ exports.createItem = async (req, res, next) => {
             });
         }
 
+        // Upload image to Cloudinary
+        if (req.file) {
+            uploadedImage = await uploadToCloudinary(req.file.buffer);
+        }
+
+        // Save item in MongoDB
         const item = await Item.create({
             title: title.trim(),
             type,
@@ -38,9 +63,15 @@ exports.createItem = async (req, res, next) => {
             description: description.trim(),
             location: location.trim(),
             date: date || new Date(),
-            image: req.file
-                ? `/uploads/${req.file.filename}`
+
+            image: uploadedImage
+                ? uploadedImage.secure_url
                 : "",
+
+            imagePublicId: uploadedImage
+                ? uploadedImage.public_id
+                : "",
+
             reportedBy: req.user._id
         });
 
@@ -55,6 +86,20 @@ exports.createItem = async (req, res, next) => {
         });
 
     } catch (error) {
+        // Clean up Cloudinary image if item creation fails
+        if (uploadedImage) {
+            try {
+                await cloudinary.uploader.destroy(
+                    uploadedImage.public_id
+                );
+            } catch (cleanupError) {
+                console.error(
+                    "Cloudinary cleanup failed:",
+                    cleanupError.message
+                );
+            }
+        }
+
         next(error);
     }
 };
@@ -233,6 +278,21 @@ exports.deleteItem = async (req, res, next) => {
         }
 
         await item.deleteOne();
+
+        // Delete associated Cloudinary image
+        if (item.imagePublicId) {
+            try {
+                await cloudinary.uploader.destroy(
+                    item.imagePublicId,
+                    { resource_type: "image" }
+                );
+            } catch (cloudinaryError) {
+                console.error(
+                    "Cloudinary image deletion failed:",
+                    cloudinaryError.message
+                );
+            }
+        }
 
         res.status(200).json({
             success: true,

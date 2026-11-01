@@ -41,7 +41,14 @@ const itemSchema = new mongoose.Schema(
             default: Date.now
         },
 
+        // Cloudinary secure image URL
         image: {
+            type: String,
+            default: ""
+        },
+
+        // Cloudinary public ID for deleting images
+        imagePublicId: {
             type: String,
             default: ""
         },
